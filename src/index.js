@@ -1,10 +1,11 @@
 /**
- * Cloudflare Pages Function — POST /api/contact
+ * Cloudflare Worker entry point for the taku-atelier site.
  *
- * Receives the contact form submission from contact.html and sends it to
- * support@taku-atelier.com using the Cloudflare Email Service "send_email"
- * binding (configured in wrangler.toml). Cloudflare Email Routing then
- * forwards that mailbox as already configured for the domain.
+ * Serves the static site from `static/` via the ASSETS binding and handles
+ * the `/api/contact` route for the contact form, sending submissions to
+ * support@taku-atelier.com using the Cloudflare Email Sending Workers API
+ * (`send_email` binding, configured in wrangler.toml). Cloudflare Email
+ * Routing then forwards that mailbox as already configured for the domain.
  */
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -20,7 +21,11 @@ function jsonResponse(body, status = 200) {
   });
 }
 
-export async function onRequestPost({ request, env }) {
+async function handleContact(request, env) {
+  if (request.method !== "POST") {
+    return jsonResponse({ error: "Method Not Allowed" }, 405);
+  }
+
   let data;
   try {
     data = await request.json();
@@ -75,7 +80,14 @@ export async function onRequestPost({ request, env }) {
   return jsonResponse({ ok: true });
 }
 
-// Reject non-POST methods on this route.
-export async function onRequestGet() {
-  return jsonResponse({ error: "Method Not Allowed" }, 405);
-}
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+
+    if (url.pathname === "/api/contact") {
+      return handleContact(request, env);
+    }
+
+    return env.ASSETS.fetch(request);
+  },
+};

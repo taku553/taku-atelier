@@ -1,16 +1,22 @@
-# Wrangler configuration for the taku-atelier Cloudflare Pages project.
+# Wrangler configuration for the taku-atelier Cloudflare Worker.
 #
-# This project is a static site (no build step). Static HTML/CSS/assets
-# live under `static/`, which is what `pages_build_output_dir` points at.
-# The `functions/` directory stays at the repository root (sibling to
-# `static/`) — Cloudflare Pages requires Functions to live outside the
-# build output directory, so it is auto-detected from here regardless of
-# where the static output directory points.
-name = "taku-atelier"
+# Deployed via Cloudflare Workers Builds (Git integration), which runs
+# `npx wrangler deploy` on every push. This uses the unified Workers +
+# static assets model: `main` points at the Worker script that handles
+# the /api/contact route and falls back to the ASSETS binding for
+# everything else; `[assets]` points at the static site output directory.
+#
+# IMPORTANT: `name` must exactly match the Worker project name registered
+# in the Cloudflare dashboard, or Workers Builds deployments will fail.
+name = "taku-atelier-553"
+main = "src/index.js"
 compatibility_date = "2026-10-22"
-pages_build_output_dir = "static"
 
-# Email Sending Workers binding used by functions/api/contact.js to deliver
+[assets]
+directory = "static"
+binding = "ASSETS"
+
+# Email Sending Workers binding used by src/index.js to deliver
 # contact-form submissions to support@taku-atelier.com. The destination is
 # restricted to that single address. support@taku-atelier.com must already
 # be a verified destination address (it is, via Cloudflare Email Routing),
