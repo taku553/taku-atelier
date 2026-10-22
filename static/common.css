@@ -1,0 +1,415 @@
+/*
+ * common.css — Shared chrome styles for Takuのアトリエ
+ *
+ * Used by index.html, about.html, contact.html, privacy.html, and
+ * tokushoho.html. Covers: reset, theme tokens (Mono/Petal), base
+ * typography, nav, theme toggle widget, page hero, generic section
+ * layout, info list / business list / profile content components,
+ * and footer.
+ *
+ * Each page keeps its own Google Fonts @import (font sets differ
+ * slightly per page) and any page-specific layout in its own
+ * <style> block, loaded after this stylesheet.
+ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ════════════════════════════════════
+   THEME TOKENS
+════════════════════════════════════ */
+:root {
+  --dur: 0.7s;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* — Mono (dark) — */
+[data-theme="mono"] {
+  --bg:        #0a0a0a;
+  --bg-card:   #0f0f0f;
+  --bg-hover:  #141414;
+  --fg:        #f0ede8;
+  --fg-mid:    #6a6a6a;
+  --fg-light:  #c8c4bc;
+  --border:    rgba(240,237,232,0.08);
+  --border-md: rgba(240,237,232,0.12);
+  --stroke:    rgba(240,237,232,0.04);
+  --accent:    #f0ede8;
+  --toggle-bg: #1e1e1e;
+  --toggle-label: #888;
+  --pill-bg: #f4aeb3;
+  --pill-fg: #3a1820;
+  --required:  #e2534d;
+  --success:   #8fbf9f;
+}
+
+/* — Petal (pink) — */
+[data-theme="petal"] {
+  --bg:        #faf0f1;
+  --bg-card:   #f7e8ea;
+  --bg-hover:  #f0dde0;
+  --fg:        #2a1215;
+  --fg-mid:    #9e7a7e;
+  --fg-light:  #6b4048;
+  --border:    rgba(42,18,21,0.08);
+  --border-md: rgba(42,18,21,0.14);
+  --stroke:    rgba(244,174,179,0.25);
+  --accent:    #c2687a;
+  --toggle-bg: #f4aeb3;
+  --toggle-label: #8b5058;
+  --pill-bg: #2a1215;
+  --pill-fg: #f4aeb3;
+  --required:  #c23b3b;
+  --success:   #4f8f68;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 3rem;
+  z-index: 100;
+}
+
+.nav-logo {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-decoration: none;
+  transition: color var(--dur) var(--ease);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  padding-right: 4rem; /* leave room for toggle */
+}
+
+.nav-links a {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg-mid);
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover { color: var(--fg); }
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: var(--fg); }
+.nav-links a.active::after { width: 100%; }
+
+/* ── Theme Toggle ── */
+.theme-toggle {
+  position: fixed;
+  top: 50%;
+  right: 2rem;
+  transform: translateY(-50%);
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.toggle-track {
+  width: 36px;
+  height: 70px;
+  background: var(--toggle-bg);
+  border-radius: 18px;
+  position: relative;
+  cursor: pointer;
+  border: 1px solid var(--border-md);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  overflow: hidden;
+}
+
+.toggle-pill {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--pill-bg);
+  left: 5px;
+  top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: var(--pill-fg);
+  font-family: 'Courier Prime', monospace;
+  font-weight: bold;
+  letter-spacing: -0.05em;
+  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+[data-theme="petal"] .toggle-pill {
+  transform: translateY(36px);
+}
+
+.theme-badge {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.48rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-mid);
+  text-align: center;
+  transition: color var(--dur) var(--ease);
+  line-height: 1.6;
+}
+
+/* ── Page Header ── */
+.page-hero {
+  padding: 10rem 3rem 4rem;
+  border-bottom: 1px solid var(--border);
+  transition: border-color var(--dur) var(--ease);
+}
+
+.page-eyebrow {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--fg-mid);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: color var(--dur) var(--ease);
+}
+
+.page-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: var(--fg-mid);
+  transition: background var(--dur) var(--ease);
+}
+
+.page-title {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.page-title em {
+  font-style: italic;
+  color: var(--fg-light);
+  transition: color var(--dur) var(--ease);
+}
+
+.page-desc {
+  max-width: 480px;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--fg-light);
+  transition: color var(--dur) var(--ease);
+}
+
+/* ── Section ── */
+.section {
+  padding: 5rem 3rem;
+  border-bottom: 1px solid var(--border);
+  transition: border-color var(--dur) var(--ease);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.section-count {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--fg-mid);
+  text-transform: uppercase;
+  transition: color var(--dur) var(--ease);
+}
+
+/* ── Basic info list ── */
+.info-list {
+  max-width: 720px;
+  border-top: 1px solid var(--border);
+  transition: border-color var(--dur) var(--ease);
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 2rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: border-color var(--dur) var(--ease);
+}
+
+.info-row dt {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg-mid);
+  transition: color var(--dur) var(--ease);
+}
+
+.info-row dd {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--fg-light);
+  transition: color var(--dur) var(--ease);
+}
+
+.info-row dd.info-sans {
+  font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+
+.info-row dd a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-md);
+}
+
+.info-pending {
+  font-style: italic;
+  color: var(--fg-mid);
+}
+
+/* ── Business list ── */
+.business-list {
+  list-style: none;
+  max-width: 720px;
+}
+
+.business-list li {
+  font-size: 1.2rem;
+  line-height: 1.9;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  color: var(--fg-light);
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.business-list li::before {
+  content: '';
+  font-family: 'Courier Prime', monospace;
+  counter-increment: biz;
+  font-size: 0.65rem;
+  color: var(--fg-mid);
+  letter-spacing: 0.1em;
+}
+
+.business-list { counter-reset: biz; }
+.business-list li::before { content: counter(biz, decimal-leading-zero); }
+
+/* ── Profile ── */
+.profile-content {
+  max-width: 720px;
+}
+
+.profile-content p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--fg-light);
+  margin-bottom: 2rem;
+  transition: color var(--dur) var(--ease);
+}
+
+.profile-content p:last-child { margin-bottom: 0; }
+
+.profile-content strong {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: normal;
+  color: var(--fg-mid);
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+/* ── Footer ── */
+footer {
+  padding: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem 2rem;
+}
+
+.footer-logo {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+}
+
+.footer-links a {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--fg-mid);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover { color: var(--fg); }
+
+.footer-copy {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--fg-mid);
+  transition: color var(--dur) var(--ease);
+}

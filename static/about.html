@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="mono">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Takuのアトリエ</title>
+<link rel="icon" type="image/svg+xml" href="assets/taku_atelier_favicon.svg">
+<link rel="stylesheet" href="common.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Courier+Prime:ital@0;1&family=Noto+Sans+JP:wght@400;500&display=swap');
+</style>
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<div class="theme-toggle" id="themeToggle" title="テーマ切り替え">
+  <div class="theme-badge" id="badgeTop">Mono</div>
+  <div class="toggle-track" id="toggleTrack">
+    <div class="toggle-pill" id="togglePill">●</div>
+  </div>
+  <div class="theme-badge" id="badgeBot">Petal</div>
+</div>
+
+<!-- Nav -->
+<nav>
+  <a href="index.html" class="nav-logo">Takuのアトリエ</a>
+  <ul class="nav-links">
+    <li><a href="index.html#work">Work</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Page Hero -->
+<section class="page-hero">
+  <p class="page-eyebrow">Operator Information</p>
+  <h1 class="page-title">運営者情報</h1>
+</section>
+
+<!-- 基本情報 -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">基本情報</h2>
+    <span class="section-count">Basic Info</span>
+  </div>
+  <dl class="info-list">
+    <div class="info-row">
+      <dt>事業者名</dt>
+      <dd>Takuのアトリエ</dd>
+    </div>
+    <div class="info-row">
+      <dt>所在地</dt>
+      <dd class="info-pending info-sans">〒150-0001 東京都渋谷区神宮前5丁目51番8号ラ・ポルト青山 2F-7</dd>
+    </div>
+    <div class="info-row">
+      <dt>電話番号</dt>
+      <dd class="info-sans"><a href="tel:09047747919">090-4774-7919</a></dd>
+    </div>
+  </dl>
+</section>
+
+<!-- 事業内容 -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">事業内容</h2>
+    <span class="section-count">Business</span>
+  </div>
+  <ul class="business-list">
+    <li>アプリ開発</li>
+    <li>Webデザイン</li>
+    <li>ツール導入サポート</li>
+  </ul>
+</section>
+
+<!-- サイト運営者 -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">サイト運営者</h2>
+    <span class="section-count">Profile</span>
+  </div>
+  <div class="profile-content">
+    <p>
+      <strong>経歴</strong>
+      警視庁を3ヶ月で退職後、生活保護を受けながらアプリ開発を続け、現在はクイズアプリ「Tripper」、グラフ化アプリ「Grafico」、レベルアップアプリ「Akari」を公開中。今後は物流向け各種システムの開発に注力していく。
+    </p>
+    <p>
+      <strong>活動内容</strong>
+      アプリ開発のほか、Substack・Spotifyでの記事投稿やポッドキャストを配信中。
+    </p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">Takuのアトリエ</div>
+  <div class="footer-links">
+    <a href="tokushoho.html">特定商取引法に基づく表記</a>
+    <a href="privacy.html">プライバシーポリシー</a>
+  </div>
+  <div class="footer-copy">© 2025 — All rights reserved</div>
+</footer>
+
+<script>
+  /* ── Theme Toggle (persisted via localStorage) ── */
+  const html        = document.documentElement;
+  const toggleTrack = document.getElementById('toggleTrack');
+  const badgeTop    = document.getElementById('badgeTop');
+  const badgeBot    = document.getElementById('badgeBot');
+
+  let currentTheme = localStorage.getItem('atelier-theme') || 'mono';
+
+  function setTheme(theme) {
+    currentTheme = theme;
+    html.setAttribute('data-theme', theme);
+    badgeTop.style.opacity = theme === 'mono'  ? '1'   : '0.35';
+    badgeBot.style.opacity = theme === 'petal' ? '1'   : '0.35';
+    localStorage.setItem('atelier-theme', theme);
+  }
+
+  setTheme(currentTheme);
+
+  toggleTrack.addEventListener('click', () => {
+    setTheme(currentTheme === 'mono' ? 'petal' : 'mono');
+  });
+</script>
+</body>
+</html>

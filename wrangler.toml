@@ -1,0 +1,21 @@
+# Wrangler configuration for the taku-atelier Cloudflare Pages project.
+#
+# This project is a static site (no build step). Static HTML/CSS/assets
+# live under `static/`, which is what `pages_build_output_dir` points at.
+# The `functions/` directory stays at the repository root (sibling to
+# `static/`) — Cloudflare Pages requires Functions to live outside the
+# build output directory, so it is auto-detected from here regardless of
+# where the static output directory points.
+name = "taku-atelier"
+compatibility_date = "2026-10-22"
+pages_build_output_dir = "static"
+
+# Email Sending Workers binding used by functions/api/contact.js to deliver
+# contact-form submissions to support@taku-atelier.com. The destination is
+# restricted to that single address. support@taku-atelier.com must already
+# be a verified destination address (it is, via Cloudflare Email Routing),
+# and taku-atelier.com must be onboarded as a sending domain in Cloudflare
+# Email Service before this binding will work.
+[[send_email]]
+name = "EMAIL"
+destination_address = "support@taku-atelier.com"

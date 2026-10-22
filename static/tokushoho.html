@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="mono">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>特定商取引法に基づく表記 — Takuのアトリエ</title>
+<link rel="icon" type="image/svg+xml" href="assets/taku_atelier_favicon.svg">
+<link rel="stylesheet" href="common.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Courier+Prime:ital@0;1&family=Noto+Sans+JP:wght@400;500&display=swap');
+</style>
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<div class="theme-toggle" id="themeToggle" title="テーマ切り替え">
+  <div class="theme-badge" id="badgeTop">Mono</div>
+  <div class="toggle-track" id="toggleTrack">
+    <div class="toggle-pill" id="togglePill">●</div>
+  </div>
+  <div class="theme-badge" id="badgeBot">Petal</div>
+</div>
+
+<!-- Nav -->
+<nav>
+  <a href="index.html" class="nav-logo">Takuのアトリエ</a>
+  <ul class="nav-links">
+    <li><a href="index.html#work">Work</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Page Hero -->
+<section class="page-hero">
+  <p class="page-eyebrow">Legal Notice</p>
+  <h1 class="page-title">特定商取引法に<br><em>基づく表記</em></h1>
+  <p class="page-desc">特定商取引法第11条の規定に基づき、以下のとおり表示いたします。</p>
+</section>
+
+<!-- 基本情報 -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">基本情報</h2>
+    <span class="section-count">Basic Info</span>
+  </div>
+  <dl class="info-list">
+    <div class="info-row">
+      <dt>事業者名</dt>
+      <dd>Takuのアトリエ</dd>
+    </div>
+    <div class="info-row">
+      <dt>運営統括責任者</dt>
+      <dd class="info-pending">ご請求をいただき次第、遅滞なく開示いたします</dd>
+    </div>
+    <div class="info-row">
+      <dt>所在地</dt>
+      <dd class="info-pending info-sans">〒150-0001 東京都渋谷区神宮前5丁目51番8号ラ・ポルト青山 2F-7</dd>
+    </div>
+    <div class="info-row">
+      <dt>電話番号</dt>
+      <dd class="info-sans"><a href="tel:09047747919">090-4774-7919</a></dd>
+    </div>
+    <div class="info-row">
+      <dt>メールアドレス</dt>
+      <dd class="info-pending info-sans">support@taku-atelier.com</dd>
+    </div>
+    <div class="info-row">
+      <dt>事業内容</dt>
+      <dd>アプリ開発／Webデザイン／ツール導入サポート</dd>
+    </div>
+  </dl>
+</section>
+
+<!-- 販売条件 -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">販売条件</h2>
+    <span class="section-count">Terms</span>
+  </div>
+  <dl class="info-list">
+    <div class="info-row">
+      <dt>販売価格</dt>
+      <dd class="info-pending">案件の内容に応じて個別にお見積りします。契約前に書面（メール等）にて金額をご提示いたします。</dd>
+    </div>
+    <div class="info-row">
+      <dt>商品代金以外の必要料金</dt>
+      <dd class="info-pending">特になし（別途費用が発生する場合は事前にご案内します）</dd>
+    </div>
+    <div class="info-row">
+      <dt>お支払い方法</dt>
+      <dd class="info-pending">銀行振込・クレジットカード決済（案件ごとにご案内します）</dd>
+    </div>
+    <div class="info-row">
+      <dt>お支払い時期</dt>
+      <dd class="info-pending">契約内容に基づき個別に定めます（例：着手金＋納品時精算）</dd>
+    </div>
+    <div class="info-row">
+      <dt>役務の提供時期</dt>
+      <dd class="info-pending">契約成立後、個別に合意した納期に基づき提供します</dd>
+    </div>
+    <div class="info-row">
+      <dt>返品・キャンセルについて</dt>
+      <dd class="info-pending">成果物の性質上、提供後の返品・返金は原則お受けできません。契約内容により個別に対応します。</dd>
+    </div>
+    <div class="info-row">
+      <dt>動作環境</dt>
+      <dd class="info-pending">提供するアプリ・ツールにより異なります。詳細は個別にご案内します。</dd>
+    </div>
+  </dl>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">Takuのアトリエ</div>
+  <div class="footer-links">
+    <a href="tokushoho.html">特定商取引法に基づく表記</a>
+    <a href="privacy.html">プライバシーポリシー</a>
+  </div>
+  <div class="footer-copy">© 2025 — All rights reserved</div>
+</footer>
+
+<script>
+  /* ── Theme Toggle (persisted via localStorage) ── */
+  const html        = document.documentElement;
+  const toggleTrack = document.getElementById('toggleTrack');
+  const badgeTop    = document.getElementById('badgeTop');
+  const badgeBot    = document.getElementById('badgeBot');
+
+  let currentTheme = localStorage.getItem('atelier-theme') || 'mono';
+
+  function setTheme(theme) {
+    currentTheme = theme;
+    html.setAttribute('data-theme', theme);
+    badgeTop.style.opacity = theme === 'mono'  ? '1'   : '0.35';
+    badgeBot.style.opacity = theme === 'petal' ? '1'   : '0.35';
+    localStorage.setItem('atelier-theme', theme);
+  }
+
+  setTheme(currentTheme);
+
+  toggleTrack.addEventListener('click', () => {
+    setTheme(currentTheme === 'mono' ? 'petal' : 'mono');
+  });
+</script>
+</body>
+</html>

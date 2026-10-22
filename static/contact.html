@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="mono">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Takuのアトリエ</title>
+<link rel="icon" type="image/svg+xml" href="assets/taku_atelier_favicon.svg">
+<link rel="stylesheet" href="common.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Courier+Prime:ital@0;1&family=Noto+Sans+JP:wght@400;500&display=swap');
+
+  /* ── Contact Form ── */
+  .contact-form {
+    max-width: 640px;
+  }
+
+  .form-group {
+    margin-bottom: 2.5rem;
+  }
+
+  .form-label {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-mid);
+    margin-bottom: 0.9rem;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .required-badge {
+    font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    color: var(--required);
+    text-transform: none;
+  }
+
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-md);
+    color: var(--fg);
+    font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.8;
+    padding: 0.9rem 1.1rem;
+    transition: border-color 0.3s, background var(--dur) var(--ease), color var(--dur) var(--ease);
+  }
+
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: var(--fg-mid);
+    opacity: 0.7;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 180px;
+  }
+
+  .form-group.has-error .form-input,
+  .form-group.has-error .form-textarea {
+    border-color: var(--required);
+  }
+
+  .form-error {
+    min-height: 1.2em;
+    margin-top: 0.6rem;
+    font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--required);
+  }
+
+  .form-honeypot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .form-footer {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .form-submit {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fg);
+    background: transparent;
+    border: 1px solid var(--border-md);
+    padding: 1rem 2.5rem;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s, color 0.3s;
+  }
+
+  .form-submit:hover:not(:disabled) {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+
+  .form-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .form-status {
+    font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.9rem;
+    color: var(--fg-light);
+    transition: color var(--dur) var(--ease);
+  }
+
+  .form-status.is-error { color: var(--required); }
+  .form-status.is-success { color: var(--success); }
+</style>
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<div class="theme-toggle" id="themeToggle" title="テーマ切り替え">
+  <div class="theme-badge" id="badgeTop">Mono</div>
+  <div class="toggle-track" id="toggleTrack">
+    <div class="toggle-pill" id="togglePill">●</div>
+  </div>
+  <div class="theme-badge" id="badgeBot">Petal</div>
+</div>
+
+<!-- Nav -->
+<nav>
+  <a href="index.html" class="nav-logo">Takuのアトリエ</a>
+  <ul class="nav-links">
+    <li><a href="index.html#work">Work</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Page Hero -->
+<section class="page-hero">
+  <p class="page-eyebrow">Get in Touch</p>
+  <h1 class="page-title">お問い合わせ<br><em>Contact</em></h1>
+  <p class="page-desc">ご質問・ご相談など、下記フォームよりお気軽にお問い合わせください。内容を確認の上、support@taku-atelier.com よりご連絡いたします。</p>
+</section>
+
+<!-- Contact Form -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">お問い合わせフォーム</h2>
+    <span class="section-count">Contact Form</span>
+  </div>
+
+  <form class="contact-form" id="contactForm" novalidate>
+    <div class="form-group">
+      <label class="form-label" for="email">
+        メールアドレス <span class="required-badge">［必須］</span>
+      </label>
+      <input
+        class="form-input"
+        type="email"
+        id="email"
+        name="email"
+        autocomplete="email"
+        placeholder="your@email.com"
+        aria-describedby="emailError"
+      >
+      <p class="form-error" id="emailError" role="alert"></p>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="message">
+        お問い合わせ内容 <span class="required-badge">［必須］</span>
+      </label>
+      <textarea
+        class="form-textarea"
+        id="message"
+        name="message"
+        rows="8"
+        placeholder="お問い合わせ内容をご記入ください"
+        aria-describedby="messageError"
+      ></textarea>
+      <p class="form-error" id="messageError" role="alert"></p>
+    </div>
+
+    <!-- Honeypot field (spam bots only) -->
+    <div class="form-honeypot">
+      <label for="company">Company</label>
+      <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+    </div>
+
+    <div class="form-footer">
+      <button class="form-submit" type="submit" id="submitBtn">送信する</button>
+      <p class="form-status" id="formStatus" role="status"></p>
+    </div>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">Takuのアトリエ</div>
+  <div class="footer-links">
+    <a href="tokushoho.html">特定商取引法に基づく表記</a>
+    <a href="privacy.html">プライバシーポリシー</a>
+  </div>
+  <div class="footer-copy">© 2025 — All rights reserved</div>
+</footer>
+
+<script>
+  /* ── Theme Toggle (persisted via localStorage) ── */
+  const html        = document.documentElement;
+  const toggleTrack = document.getElementById('toggleTrack');
+  const badgeTop    = document.getElementById('badgeTop');
+  const badgeBot    = document.getElementById('badgeBot');
+
+  let currentTheme = localStorage.getItem('atelier-theme') || 'mono';
+
+  function setTheme(theme) {
+    currentTheme = theme;
+    html.setAttribute('data-theme', theme);
+    badgeTop.style.opacity = theme === 'mono'  ? '1'   : '0.35';
+    badgeBot.style.opacity = theme === 'petal' ? '1'   : '0.35';
+    localStorage.setItem('atelier-theme', theme);
+  }
+
+  setTheme(currentTheme);
+
+  toggleTrack.addEventListener('click', () => {
+    setTheme(currentTheme === 'mono' ? 'petal' : 'mono');
+  });
+
+  /* ── Contact Form ── */
+  const form        = document.getElementById('contactForm');
+  const emailInput   = document.getElementById('email');
+  const messageInput = document.getElementById('message');
+  const emailError   = document.getElementById('emailError');
+  const messageError = document.getElementById('messageError');
+  const submitBtn    = document.getElementById('submitBtn');
+  const formStatus   = document.getElementById('formStatus');
+
+  function validateEmail(value) {
+    const v = value.trim();
+    if (!v) return 'メールアドレスを入力してください。';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return 'メールアドレスの形式が正しくありません。';
+    return '';
+  }
+
+  function validateMessage(value) {
+    if (!value.trim()) return 'お問い合わせ内容を入力してください。';
+    return '';
+  }
+
+  function setFieldError(input, errorEl, message) {
+    const group = input.closest('.form-group');
+    if (message) {
+      group.classList.add('has-error');
+      errorEl.textContent = message;
+    } else {
+      group.classList.remove('has-error');
+      errorEl.textContent = '';
+    }
+    return !message;
+  }
+
+  function setStatus(message, state) {
+    formStatus.textContent = message;
+    formStatus.classList.remove('is-error', 'is-success');
+    if (state) formStatus.classList.add(state);
+  }
+
+  emailInput.addEventListener('blur', () => setFieldError(emailInput, emailError, validateEmail(emailInput.value)));
+  messageInput.addEventListener('blur', () => setFieldError(messageInput, messageError, validateMessage(messageInput.value)));
+  emailInput.addEventListener('input', () => { if (emailInput.closest('.form-group').classList.contains('has-error')) setFieldError(emailInput, emailError, validateEmail(emailInput.value)); });
+  messageInput.addEventListener('input', () => { if (messageInput.closest('.form-group').classList.contains('has-error')) setFieldError(messageInput, messageError, validateMessage(messageInput.value)); });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const emailValid   = setFieldError(emailInput, emailError, validateEmail(emailInput.value));
+    const messageValid = setFieldError(messageInput, messageError, validateMessage(messageInput.value));
+
+    if (!emailValid || !messageValid) {
+      setStatus('入力内容をご確認ください。', 'is-error');
+      (emailValid ? messageInput : emailInput).focus();
+      return;
+    }
+
+    // Honeypot: if filled, silently drop (bot submission)
+    if (form.company.value) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '送信中…';
+    setStatus('', null);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: emailInput.value.trim(),
+          message: messageInput.value.trim(),
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        if (data.errors) {
+          if (data.errors.email) setFieldError(emailInput, emailError, data.errors.email);
+          if (data.errors.message) setFieldError(messageInput, messageError, data.errors.message);
+        }
+        setStatus(data.error || '送信に失敗しました。時間をおいて再度お試しください。', 'is-error');
+        return;
+      }
+
+      form.reset();
+      setStatus('お問い合わせを受け付けました。ご連絡ありがとうございます。', 'is-success');
+    } catch (err) {
+      setStatus('通信エラーが発生しました。時間をおいて再度お試しください。', 'is-error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = '送信する';
+    }
+  });
+</script>
+</body>
+</html>
