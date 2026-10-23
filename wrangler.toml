@@ -8,7 +8,7 @@
 #
 # IMPORTANT: `name` must exactly match the Worker project name registered
 # in the Cloudflare dashboard, or Workers Builds deployments will fail.
-name = "taku-atelier-553"
+name = "taku-atelier"
 main = "src/index.js"
 compatibility_date = "2026-10-22"
 
