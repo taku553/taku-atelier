@@ -179,16 +179,17 @@
     min-height: 100vh;
     display: grid;
     grid-template-rows: 1fr auto;
-    padding: 0 3rem 3rem;
+    padding: 4rem 3rem 3rem;
     position: relative;
     overflow: hidden;
   }
 
+  /* Content now anchors near the top of the viewport instead of the
+     bottom, so the logo reads immediately below the nav. */
   .hero-content {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding-bottom: 4rem;
+    justify-content: flex-start;
   }
 
   .hero-eyebrow {
@@ -223,10 +224,13 @@
   .hero-title .line:nth-child(1) span { animation-delay: 0.5s; }
   .hero-title .line:nth-child(2) span { animation-delay: 0.65s; }
 
-  /* ── Hero logo image (replaces "silence." line) ── */
+  /* ── Hero logo image (replaces "silence." line) ──
+     Sized with clamp() so it reads noticeably larger on every
+     viewport (mobile included) while staying capped on very wide
+     desktop screens. */
   .hero-logo-img {
     display: block;
-    width: 33vw;
+    width: clamp(220px, 48vw, 620px);
     height: auto;
   }
 
@@ -418,7 +422,10 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    padding: 2.5rem;
+    /* Scales smoothly with viewport width instead of a fixed 2.5rem,
+       so the logo doesn't get crushed inside narrower mobile cards;
+       it still resolves to exactly 2.5rem from ~800px up. */
+    padding: clamp(0.75rem, 5vw, 2.5rem);
     display: block;
   }
 
@@ -445,6 +452,28 @@
     color: var(--fg-mid);
     margin-top: 0.75rem;
     transition: color var(--dur) var(--ease);
+  }
+
+  /* ── Work grid: mobile ──
+     Desktop keeps the 3-up grid untouched. Below 768px the 3 items
+     stay in a single row at a comfortable width each and become a
+     horizontally scrollable, snap-aligned strip instead of being
+     squeezed into equal thirds. */
+  @media (max-width: 768px) {
+    .works-grid {
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+
+    .work-item {
+      flex: 0 0 82%;
+      scroll-snap-align: start;
+      padding: 2.5rem 2rem;
+    }
   }
 
   /* ── About ── */
@@ -552,7 +581,7 @@
 
 <!-- Nav -->
 <nav>
-  <a href="#" class="nav-logo">Takuのアトリエ</a>
+  <a href="#" class="nav-logo"><img src="assets/taku_atelier_favicon.svg" alt="Takuのアトリエ" class="nav-logo-img"></a>
   <ul class="nav-links">
     <li><a href="#work">Work</a></li>
     <li><a href="about.html">About</a></li>

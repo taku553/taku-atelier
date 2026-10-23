@@ -73,25 +73,33 @@ body {
   transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
 
-/* ── Nav ── */
+/* ── Nav ──
+   Not fixed/position:fixed on purpose — a fixed nav kept overlapping
+   page content (worst on narrow/mobile widths), so it now sits in
+   normal document flow at the top of each page. */
 nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 2rem 3rem;
-  z-index: 100;
 }
 
 .nav-logo {
-  font-family: 'Courier Prime', monospace;
-  font-size: 0.75rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--fg);
+  display: inline-flex;
   text-decoration: none;
-  transition: color var(--dur) var(--ease);
+}
+
+.nav-logo-img {
+  display: block;
+  height: 2.75rem;
+  width: auto;
+  transition: filter var(--dur) var(--ease);
+}
+
+/* Favicon mark is drawn with a black stroke; invert it to read as
+   light on the dark Mono theme background. */
+[data-theme="mono"] .nav-logo-img {
+  filter: invert(1);
 }
 
 .nav-links {
@@ -187,7 +195,9 @@ nav {
 
 /* ── Page Header ── */
 .page-hero {
-  padding: 10rem 3rem 4rem;
+  /* Top padding no longer needs to clear a fixed nav, so it matches
+     the bottom padding now that nav sits in normal flow. */
+  padding: 4rem 3rem;
   border-bottom: 1px solid var(--border);
   transition: border-color var(--dur) var(--ease);
 }
