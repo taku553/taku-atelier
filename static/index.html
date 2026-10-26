@@ -254,35 +254,6 @@
     transition: border-color var(--dur) var(--ease);
   }
 
-  .hero-scroll {
-    font-family: 'Courier Prime', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--fg-mid);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    transition: color var(--dur) var(--ease);
-  }
-
-  .hero-scroll::before {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 1px;
-    background: var(--fg-mid);
-    transform-origin: left;
-    transition: background var(--dur) var(--ease);
-  }
-
-  .hero-year {
-    font-family: 'Courier Prime', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    color: var(--fg-mid);
-    transition: color var(--dur) var(--ease);
-  }
 
   .bg-number {
     position: absolute;
@@ -298,37 +269,6 @@
     transition: -webkit-text-stroke-color var(--dur) var(--ease);
   }
 
-  /* ── Marquee ── */
-  .marquee-wrap {
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 1.5rem 0;
-    overflow: hidden;
-    white-space: nowrap;
-    transition: border-color var(--dur) var(--ease);
-  }
-
-  .marquee-track {
-    display: inline-flex;
-    animation: marquee 18s linear infinite;
-  }
-
-  .marquee-item {
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--fg-mid);
-    padding: 0 2.5rem;
-    font-family: 'Courier Prime', monospace;
-    transition: color var(--dur) var(--ease);
-  }
-
-  .marquee-item span { margin: 0 2rem; opacity: 0.35; }
-
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
 
   /* ── Work Section ── */
   .section {
@@ -595,20 +535,9 @@
       <span class="line"><img src="assets/taku_atelier-white.svg" alt="Taku Atelier logo" class="hero-logo-img"></span>
     </h1>
   </div>
-  <div class="hero-bar">
-    <div class="hero-scroll">Scroll to explore</div>
-    <div class="hero-year">Est. MMXXV</div>
-  </div>
   <div class="bg-number">01</div>
 </section>
 
-<!-- Marquee -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <div class="marquee-item">Visual Identity <span>✦</span> Art Direction <span>✦</span> Web Design <span>✦</span> Typography <span>✦</span> Motion <span>✦</span> Brand Strategy <span>✦</span></div>
-    <div class="marquee-item">Visual Identity <span>✦</span> Art Direction <span>✦</span> Web Design <span>✦</span> Typography <span>✦</span> Motion <span>✦</span> Brand Strategy <span>✦</span></div>
-  </div>
-</div>
 <!-- Work -->
 <section class="section" id="work">
   <div class="section-header">
