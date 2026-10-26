@@ -320,7 +320,6 @@ nav {
 }
 
 .info-pending {
-  font-style: italic;
   color: var(--fg-mid);
 }
 
@@ -361,6 +360,7 @@ nav {
 
 .profile-content p {
   font-size: 1.05rem;
+  font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.9;
   color: var(--fg-light);
   margin-bottom: 2rem;
